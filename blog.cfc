@@ -4,7 +4,7 @@
 		<cfargument name="description" required="no" type="string">
 		<cfargument name="body" required="no" type="string">
 		<cftry>
-			<cfquery name="qInsCustomer">
+			<cfquery name="qInsCustomer" datasource="test01">
 				insert into blogs (title, description, body) values (
 					'#Arguments.title#',
 					'#Arguments.description#',
@@ -21,7 +21,7 @@
 
 	<cffunction name="getEntries" returntype="query">
 		<cftry>
-			<cfquery name="qGetEntries">
+			<cfquery name="qGetEntries" datasource="test01">
 				select
 				title,description,body
 				from blogs
