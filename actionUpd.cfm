@@ -6,27 +6,28 @@
 <title>Railo Test</title>
 
 <body>
-	<!--- Validation --->
+	<!-- Validation -->
 	<cfif #Form.Title# is "" >
 		Title is required.
 		<br\>
-		<a href="add.cfm">Go Back</a>
+		<a href="upd.cfm">Go Back</a>
 	<cfelse>
-		<!--- Insert the new record --->
+		<!-- Update the new record -->
 		<cfscript>
 			objBlog = createObject("component", "blog");
-			InsRet = objBlog.addEntry(
+			UpdRet = objBlog.updEntry(
+				#Form.Id#,
 				#Form.Title#,
 				#Form.Description#,
 				#Form.Body#
 				);
 		</cfscript>
 
-		<h1>Blog Added</h1>
+		<h1>Blog Updated</h1>
 		<cfoutput>
-			You have added #Form.Title# to the blog.
+			You have updated #Form.Title# to the blog.
 		</cfoutput>
-		<a href="list.cfm">List</a>
+		<a href="admin.cfm">Admin</a>
 	</cfif>
 </body>
 </html>

@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" ng-app="contentcatApp">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<!--- JavaScript used for validation. --->
+<!-- JavaScript used for validation. -->
 <script>
 <!--
 function valTitle(form, ctrl, value) {
@@ -19,22 +19,30 @@ if (value.length == 0)
 //-->
 </script>
 
-<title>Railo Test</title>
+<title>Railo Test Update</title>
 
 <cfscript>
-	objBlog = createObject("component", "blog");
-	GetRet = objBlog.getEntries();
+	objBlog = CreateObject("component", "blog");
+	GetRet = objBlog.getEntry(#Url.id#);
 </cfscript>
 
 <body>
-	<h2>Add a Blog</h2>
+	<h2>Update a Blog</h2>
 
 	<table>
-		<cfform action="action.cfm" method="post">
+		<cfform action="actionUpd.cfm" method="post">
+			<tr>
+				<td>ID:</td>
+				<td>
+					<cfinput type="text" name="Id" value=#GetRet.id#
+						size="35" maxlength="50" readonly="true">
+				</td>
+			</tr>
 			<tr>
 				<td>Title:</td>
 				<td>
-					<cfinput type="text" name="Title" onValidate="valTitle"
+					<cfinput type="text" name="Title" value=#GetRet.title#
+						onValidate="valTitle"
 						message="Title is required!"
 						size="35" maxlength="50">
 				</td>
@@ -42,13 +50,15 @@ if (value.length == 0)
 			<tr>
 				<td>Description:</td>
 				<td>
-					<cfinput type="text" name="Description" size="35" maxlength="50">
+					<cfinput type="text" name="Description" value=#GetRet.description# size="35" maxlength="50">
 				</td>
 			</tr>
 			<tr>
 				<td>Body:</td>
 				<td>
-					<textarea name="Body" cols=40 rows=4></textarea>
+					<cfoutput>
+						<textarea name="Body" cols=40 rows=4>#GetRet.body#</textarea>
+					</cfoutput>
 				</td>
 			</tr>
 			<tr>
@@ -58,6 +68,6 @@ if (value.length == 0)
 		</cfform>
 	</table>
 	<br\>
-	<a href="list.cfm">List</a>
+	<a href="admin.cfm">Admin</a>
 </body>
 </html>
